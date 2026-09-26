@@ -1,0 +1,90 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // User profiles: users may edit only customer-owned profile fields.
+    // Identity, counters and timestamps are protected from arbitrary client edits.
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId)
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.loginCount == 0;
+      allow update: if isAdmin() || (
+        isOwner(userId)
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.loginCount == resource.data.loginCount
+        && request.resource.data.lastLoginAt == resource.data.lastLoginAt
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Orders are intentionally marked as demo checkout data in this client-only build.
+    // A real commerce deployment must create authoritative orders from trusted backend code.
+    match /orders/{orderId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.id == orderId
+        && request.resource.data.status == 'Confirmed'
+        && request.resource.data.paymentMethod in ['Credit/Debit Card', 'Net Banking', 'UPI']
+        && request.resource.data.items.size() > 0
+        && request.resource.data.taxBreakdown.grandTotal == request.resource.data.taxBreakdown.basePrice + request.resource.data.taxBreakdown.totalCharges;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /testDrives/{testDriveId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.id == testDriveId
+        && request.resource.data.status == 'Scheduled';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Login/activity audit records should be written by trusted server-side code in production.
+    // They are read-only from the client in this final portfolio build.
+    match /loginLogs/{logId} {
+      allow read: if isAdmin();
+      allow create, update, delete: if false;
+    }
+
+    match /activityLogs/{logId} {
+      allow read: if isAdmin();
+      allow create, update, delete: if false;
+    }
+
+    // Community reviews are public. Purchase verification must never be client-controlled.
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && request.resource.data.verified == false
+        && request.resource.data.comment.size() >= 3
+        && request.resource.data.comment.size() <= 2000;
+      allow update, delete: if isAdmin()
+        || (isAuthenticated() && resource.data.authorUid == request.auth.uid);
+    }
+
+    match /cars/{carId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

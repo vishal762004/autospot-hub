@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "provider": "Wikimedia Commons plus one official Mahindra media source",
+  "policy": "One real vehicle photograph per catalogue entry. No generated artwork, no people-focused images, no multi-vehicle reference shots, no runtime remote loading.",
+  "cars": [
+    {
+      "id": 1,
+      "file": "01-rolls-royce-phantom-viii.jpg",
+      "query": "Rolls-Royce Phantom VIII",
+      "preferredTitles": [
+        "2022 Rolls-Royce Phantom V12 Auto.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "file": "02-bugatti-chiron-pur-sport.jpg",
+      "query": "Bugatti Chiron Pur Sport",
+      "preferredTitles": [
+        "2021 Bugatti Chiron Pur Sport in Atlantic Blue, front left.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "file": "03-lamborghini-aventador-ultimae.jpg",
+      "query": "Lamborghini Aventador Ultimae",
+      "preferredTitles": [
+        "2022 Lamborghini Aventador Ultimae.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "file": "04-mercedes-maybach-s680.jpg",
+      "query": "Mercedes-Maybach S 680",
+      "preferredTitles": [
+        "Mercedes-Maybach S-Klasse (Z223) S 680 4MATIC (2023) (52872428288).jpg",
+        "Mercedes-Maybach S 680 (55083988367).jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "file": "05-porsche-911-gt3-rs.jpg",
+      "query": "Porsche 911 GT3 RS 992.1",
+      "preferredTitles": [
+        "2023 Porsche 911 GT3 RS 1.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "file": "06-bentley-continental-gt-speed.jpg",
+      "query": "Bentley Continental GT Speed",
+      "preferredTitles": [
+        "2025 Bentley Continental GT Speed.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "file": "07-ferrari-296-gtb.jpg",
+      "query": "Ferrari 296 GTB",
+      "preferredTitles": [
+        "Ferrari 296 GTB.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "file": "08-bmw-i7-xdrive60.jpg",
+      "query": "BMW i7 xDrive60",
+      "preferredTitles": [
+        "2022 BMW i7 xDrive 60 M Sport.jpg"
+      ]
+    },
+    {
+      "id": 9,
+      "file": "09-range-rover-sv-lwb.jpg",
+      "query": "Range Rover SV Long Wheelbase",
+      "preferredTitles": [
+        "Range Rover SV, Auto 2024, Zurich (PANA0784).jpg"
+      ]
+    },
+    {
+      "id": 10,
+      "file": "10-mercedes-amg-g63.jpg",
+      "query": "Mercedes-AMG G 63",
+      "preferredTitles": [
+        "2025 Mercedes-Benz G 63 AMG front.jpg"
+      ]
+    },
+    {
+      "id": 11,
+      "file": "11-audi-rs-e-tron-gt.jpg",
+      "query": "Audi RS e-tron GT",
+      "preferredTitles": [
+        "2021 Audi e-tron GT RS - front left.jpg"
+      ]
+    },
+    {
+      "id": 12,
+      "file": "12-aston-martin-db12.jpg",
+      "query": "Aston Martin DB12",
+      "preferredTitles": [
+        "2023 Aston Martin DB12 (54923).jpg"
+      ]
+    },
+    {
+      "id": 13,
+      "file": "13-mclaren-750s-spider.jpg",
+      "query": "McLaren 750S Spider",
+      "preferredTitles": [
+        "2023 McLaren 750S Spider 1.jpg"
+      ]
+    },
+    {
+      "id": 14,
+      "file": "14-toyota-land-cruiser-300.jpg",
+      "query": "Toyota Land Cruiser 300",
+      "preferredTitles": [
+        "Toyota Land Cruiser 300.jpg"
+      ]
+    },
+    {
+      "id": 16,
+      "file": "16-mahindra-scorpio-n.jpg",
+      "query": "Mahindra Scorpio-N",
+      "preferredTitles": [],
+      "officialUrl": "https://www.mahindra.com/sites/default/files/2022-10/Mahindra%20Scorpio%20N.jpg",
+      "officialPage": "https://www.mahindra.com/newsroom/images"
+    },
+    {
+      "id": 17,
+      "file": "17-rolls-royce-spectre.jpg",
+      "query": "Rolls-Royce Spectre",
+      "preferredTitles": [
+        "2023 Rolls-Royce Spectre.jpg"
+      ]
+    },
+    {
+      "id": 18,
+      "file": "18-lamborghini-revuelto.jpg",
+      "query": "Lamborghini Revuelto",
+      "preferredTitles": [
+        "2023 Lamborghini Revuelto 1.jpg"
+      ]
+    },
+    {
+      "id": 19,
+      "file": "19-koenigsegg-jesko-absolut.jpg",
+      "query": "Koenigsegg Jesko Absolut",
+      "preferredTitles": [
+        "2023 Koenigsegg Jesko Absolut.jpg"
+      ]
+    },
+    {
+      "id": 20,
+      "file": "20-pagani-huayra-roadster-bc.jpg",
+      "query": "Pagani Huayra Roadster BC",
+      "preferredTitles": [
+        "Pagani Huayra BC Roadster.jpg",
+        "Pagani Huayra Roadster BC (2022) (53777108826).jpg"
+      ]
+    },
+    {
+      "id": 21,
+      "file": "21-ferrari-purosangue.jpg",
+      "query": "Ferrari Purosangue",
+      "preferredTitles": [
+        "2023 Ferrari Purosangue 1.jpg"
+      ]
+    },
+    {
+      "id": 25,
+      "file": "25-aston-martin-valkyrie.jpg",
+      "query": "Aston Martin Valkyrie",
+      "preferredTitles": [
+        "2021 Aston Martin Valkyrie FOS21.jpg",
+        "2021 Aston Martin Valkyrie SCD 24.jpg"
+      ]
+    },
+    {
+      "id": 26,
+      "file": "26-porsche-911-gt3-rs-weissach.jpg",
+      "query": "Porsche 911 GT3 RS Weissach",
+      "preferredTitles": [
+        "2023 Porsche 911 GT3 RS 2.jpg",
+        "2023 Porsche 911 GT3 RS 3.jpg"
+      ]
+    },
+    {
+      "id": 27,
+      "file": "27-audi-r8-v10-gt.jpg",
+      "query": "Audi R8 V10 GT RWD",
+      "preferredTitles": [
+        "Audi R8 GT 1.jpg"
+      ]
+    },
+    {
+      "id": 30,
+      "file": "30-mclaren-speedtail.jpg",
+      "query": "McLaren Speedtail",
+      "preferredTitles": [
+        "McLaren Speedtail.jpg"
+      ]
+    },
+    {
+      "id": 35,
+      "file": "35-ferrari-roma-spider.jpg",
+      "query": "Ferrari Roma Spider",
+      "preferredTitles": [
+        "2023 Ferrari Roma Spider.jpg"
+      ]
+    },
+    {
+      "id": 36,
+      "file": "36-bentley-flying-spur-speed.jpg",
+      "query": "Bentley Flying Spur Speed",
+      "preferredTitles": [
+        "2025 Bentley Flying Spur Speed.jpg"
+      ]
+    },
+    {
+      "id": 38,
+      "file": "38-aston-martin-dbx707.jpg",
+      "query": "Aston Martin DBX707",
+      "preferredTitles": [
+        "2022 Aston Martin DBX 707 1.jpg",
+        "2022 Aston Martin DBX 707 Auto 1.jpg"
+      ]
+    },
+    {
+      "id": 40,
+      "file": "40-audi-q8.jpg",
+      "query": "Audi Q8 S-Line",
+      "preferredTitles": [
+        "Audi Q8 S-Line front left.jpeg"
+      ]
+    }
+  ]
+}

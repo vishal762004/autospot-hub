@@ -1,0 +1,47 @@
+{
+  "name": "auto-spot-hub",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "set-admin": "node scripts/set-admin.mjs",
+    "verify:inventory": "node scripts/verify-inventory.mjs",
+    "check": "npm run verify:inventory && npm run verify:brand-assets && npm run verify:local-assets && npm run typecheck && npm test && npm run build",
+    "verify:brand-assets": "node scripts/verify-brand-assets.mjs",
+    "prepare:car-assets": "node scripts/prepare-real-car-assets.mjs",
+    "prepare:brand-assets": "node scripts/prepare-brand-assets.mjs",
+    "prepare:assets": "node scripts/prepare-assets.mjs",
+    "verify:local-assets": "node scripts/verify-local-assets.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "firebase": "^12.19.0",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.4.21",
+    "firebase-admin": "^14.4.0",
+    "jsdom": "^26.1.0",
+    "tailwindcss": "^4.1.14",
+    "typescript": "~5.8.2",
+    "vite": "^8.3.0",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

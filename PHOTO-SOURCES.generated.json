@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-09-26T00:05:35.228Z",
+  "sources": [
+    {
+      "id": 1,
+      "model": "Rolls-Royce Phantom VIII",
+      "file": "01-rolls-royce-phantom-viii.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 2,
+      "model": "Bugatti Chiron Pur Sport",
+      "file": "02-bugatti-chiron-pur-sport.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 3,
+      "model": "Lamborghini Aventador Ultimae",
+      "file": "03-lamborghini-aventador-ultimae.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 4,
+      "model": "Mercedes-Maybach S 680",
+      "file": "04-mercedes-maybach-s680.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 5,
+      "model": "Porsche 911 GT3 RS 992.1",
+      "file": "05-porsche-911-gt3-rs.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 6,
+      "model": "Bentley Continental GT Speed",
+      "file": "06-bentley-continental-gt-speed.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 7,
+      "model": "Ferrari 296 GTB",
+      "file": "07-ferrari-296-gtb.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 8,
+      "model": "BMW i7 xDrive60",
+      "file": "08-bmw-i7-xdrive60.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 9,
+      "model": "Range Rover SV Long Wheelbase",
+      "file": "09-range-rover-sv-lwb.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 10,
+      "model": "Mercedes-AMG G 63",
+      "file": "10-mercedes-amg-g63.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 11,
+      "model": "Audi RS e-tron GT",
+      "file": "11-audi-rs-e-tron-gt.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 12,
+      "model": "Aston Martin DB12",
+      "file": "12-aston-martin-db12.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 13,
+      "model": "McLaren 750S Spider",
+      "file": "13-mclaren-750s-spider.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 14,
+      "model": "Toyota Land Cruiser 300",
+      "file": "14-toyota-land-cruiser-300.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 16,
+      "model": "Mahindra Scorpio-N",
+      "file": "16-mahindra-scorpio-n.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 17,
+      "model": "Rolls-Royce Spectre",
+      "file": "17-rolls-royce-spectre.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 18,
+      "model": "Lamborghini Revuelto",
+      "file": "18-lamborghini-revuelto.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 19,
+      "model": "Koenigsegg Jesko Absolut",
+      "file": "19-koenigsegg-jesko-absolut.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 20,
+      "model": "Pagani Huayra Roadster BC",
+      "file": "20-pagani-huayra-roadster-bc.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 21,
+      "model": "Ferrari Purosangue",
+      "file": "21-ferrari-purosangue.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 25,
+      "model": "Aston Martin Valkyrie",
+      "file": "25-aston-martin-valkyrie.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 26,
+      "model": "Porsche 911 GT3 RS Weissach",
+      "file": "26-porsche-911-gt3-rs-weissach.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 27,
+      "model": "Audi R8 V10 GT RWD",
+      "file": "27-audi-r8-v10-gt.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 30,
+      "model": "McLaren Speedtail",
+      "file": "30-mclaren-speedtail.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 35,
+      "model": "Ferrari Roma Spider",
+      "file": "35-ferrari-roma-spider.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 36,
+      "model": "Bentley Flying Spur Speed",
+      "file": "36-bentley-flying-spur-speed.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 38,
+      "model": "Aston Martin DBX707",
+      "file": "38-aston-martin-dbx707.jpg",
+      "status": "existing-local"
+    },
+    {
+      "id": 40,
+      "model": "Audi Q8 S-Line",
+      "file": "40-audi-q8.jpg",
+      "status": "existing-local"
+    }
+  ]
+}

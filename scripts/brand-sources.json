@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "policy": "Real brand marks downloaded once and served locally; Mercedes-Maybach uses the Mercedes-Benz parent mark.",
+  "brands": [
+    {
+      "id": "aston-martin",
+      "file": "aston-martin.svg",
+      "slug": "astonmartin"
+    },
+    {
+      "id": "audi",
+      "file": "audi.svg",
+      "slug": "audi"
+    },
+    {
+      "id": "bmw",
+      "file": "bmw.svg",
+      "slug": "bmw"
+    },
+    {
+      "id": "bentley",
+      "file": "bentley.svg",
+      "slug": "bentley"
+    },
+    {
+      "id": "bugatti",
+      "file": "bugatti.svg",
+      "slug": "bugatti"
+    },
+    {
+      "id": "ferrari",
+      "file": "ferrari.svg",
+      "slug": "ferrari"
+    },
+    {
+      "id": "koenigsegg",
+      "file": "koenigsegg.svg",
+      "slug": "koenigsegg"
+    },
+    {
+      "id": "lamborghini",
+      "file": "lamborghini.svg",
+      "slug": "lamborghini"
+    },
+    {
+      "id": "land-rover",
+      "file": "land-rover.svg",
+      "slug": "landrover",
+      "sourceUrl": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/landrover.svg"
+    },
+    {
+      "id": "mahindra",
+      "file": "mahindra.svg",
+      "slug": "mahindra"
+    },
+    {
+      "id": "mclaren",
+      "file": "mclaren.svg",
+      "slug": "mclaren"
+    },
+    {
+      "id": "mercedes-benz",
+      "file": "mercedes-benz.svg",
+      "slug": "mercedes",
+      "sourceUrl": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mercedes.svg"
+    },
+    {
+      "id": "mercedes-maybach",
+      "file": "mercedes-benz.svg",
+      "slug": "mercedes"
+    },
+    {
+      "id": "pagani",
+      "file": "pagani.svg",
+      "slug": "pagani",
+      "sourceUrl": "https://www.pagani.com/wp-content/uploads/2023/02/logo-pagani.svg"
+    },
+    {
+      "id": "porsche",
+      "file": "porsche.svg",
+      "slug": "porsche"
+    },
+    {
+      "id": "rolls-royce",
+      "file": "rolls-royce.svg",
+      "slug": "rollsroyce"
+    },
+    {
+      "id": "toyota",
+      "file": "toyota.svg",
+      "slug": "toyota"
+    }
+  ]
+}

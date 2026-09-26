@@ -1,0 +1,266 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "User account information and preferences",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "pincode": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "carsViewedCount": {
+          "type": "number"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "lastLoginAt": {
+          "type": "string"
+        },
+        "loginCount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "uid",
+        "email"
+      ]
+    },
+    "orders": {
+      "title": "Vehicle Order",
+      "description": "Customer luxury car purchase orders",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array"
+        },
+        "taxBreakdown": {
+          "type": "object"
+        },
+        "trackingNumber": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object"
+        },
+        "paymentMethod": {
+          "type": "string"
+        },
+        "documentVerification": {
+          "type": "object"
+        },
+        "estimatedDeliveryDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "items",
+        "address"
+      ]
+    },
+    "testDrives": {
+      "title": "Test Drive Appointment",
+      "description": "VIP test drive booking appointments",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "carId": {
+          "type": "number"
+        },
+        "carName": {
+          "type": "string"
+        },
+        "carImage": {
+          "type": "string"
+        },
+        "preferredDate": {
+          "type": "string"
+        },
+        "preferredTime": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "carId"
+      ]
+    },
+    "reviews": {
+      "title": "Dealership Review",
+      "description": "Customer reviews for vehicles and dealership",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "number"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "helpfulCount": {
+          "type": "number"
+        },
+        "carModel": {
+          "type": "string"
+        },
+        "authorUid": {
+          "type": "string"
+        },
+        "carId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "authorUid",
+        "rating",
+        "comment",
+        "verified"
+      ]
+    },
+    "loginLogs": {
+      "title": "User Login Activity Log",
+      "description": "Tracks all user authentication logins and signups",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uid",
+        "email",
+        "timestamp"
+      ]
+    },
+    "activityLogs": {
+      "title": "User Activity Log",
+      "description": "Tracks page views, orders, and inquiries",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userEmail": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "details": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "action",
+        "timestamp"
+      ]
+    }
+  }
+}
