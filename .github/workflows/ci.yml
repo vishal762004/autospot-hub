@@ -1,3 +1,4 @@
+
 name: CI
 
 on:
@@ -8,15 +9,25 @@ on:
 jobs:
   quality:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - name: Install dependencies
         run: npm ci
-      - name: Run repository checks
-        run: npm run check
+
+      - name: Run repository checks with Firestore Emulator
+        run: npx --yes firebase-tools@15.37.0 emulators:exec --only firestore --project demo-autospot-hub "npm run check"

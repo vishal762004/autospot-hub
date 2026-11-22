@@ -1,26 +1,35 @@
+
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Check whether a user is authenticated.
     function isAuthenticated() {
       return request.auth != null;
     }
 
+    // Check whether the authenticated user is an administrator.
     function isAdmin() {
-      return isAuthenticated() && request.auth.token.admin == true;
+      return isAuthenticated()
+        && request.auth.token.get('admin', false) == true;
     }
 
+    // Check whether the authenticated user owns the requested user document.
     function isOwner(userId) {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
-    // User profiles: users may edit only customer-owned profile fields.
-    // Identity, counters and timestamps are protected from arbitrary client edits.
+    // USER PROFILES
+    // Users may edit only customer-owned profile fields.
+    // Identity, counters and timestamps are protected.
     match /users/{userId} {
       allow read: if isOwner(userId) || isAdmin();
+
       allow create: if isOwner(userId)
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.loginCount == 0;
+
       allow update: if isAdmin() || (
         isOwner(userId)
         && request.resource.data.uid == resource.data.uid
@@ -28,63 +37,113 @@ service cloud.firestore {
         && request.resource.data.loginCount == resource.data.loginCount
         && request.resource.data.lastLoginAt == resource.data.lastLoginAt
       );
+
       allow delete: if isAdmin();
     }
 
-    // Orders are intentionally marked as demo checkout data in this client-only build.
-    // A real commerce deployment must create authoritative orders from trusted backend code.
+    // ORDERS
+    // Demo checkout data only.
+    // Real commerce deployments must create authoritative orders
+    // through trusted backend code.
     match /orders/{orderId} {
-      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow read: if isAdmin()
+        || (isAuthenticated() && resource.data.userId == request.auth.uid);
+
       allow create: if isAuthenticated()
         && request.resource.data.userId == request.auth.uid
         && request.resource.data.id == orderId
         && request.resource.data.status == 'Confirmed'
-        && request.resource.data.paymentMethod in ['Credit/Debit Card', 'Net Banking', 'UPI']
+        && request.resource.data.paymentMethod in [
+          'Credit/Debit Card',
+          'Net Banking',
+          'UPI'
+        ]
         && request.resource.data.items.size() > 0
-        && request.resource.data.taxBreakdown.grandTotal == request.resource.data.taxBreakdown.basePrice + request.resource.data.taxBreakdown.totalCharges;
+        && request.resource.data.taxBreakdown.grandTotal
+          == request.resource.data.taxBreakdown.basePrice
+          + request.resource.data.taxBreakdown.totalCharges;
+
       allow update: if isAdmin();
       allow delete: if isAdmin();
     }
 
+    // TEST DRIVES
     match /testDrives/{testDriveId} {
-      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow read: if isAdmin()
+        || (isAuthenticated() && resource.data.userId == request.auth.uid);
+
       allow create: if isAuthenticated()
         && request.resource.data.userId == request.auth.uid
         && request.resource.data.id == testDriveId
         && request.resource.data.status == 'Scheduled';
+
       allow update: if isAdmin();
       allow delete: if isAdmin();
     }
 
-    // Login/activity audit records should be written by trusted server-side code in production.
-    // They are read-only from the client in this final portfolio build.
+    // LOGIN LOGS
+    // Only administrators can read audit records.
+    // Client-side writes are disabled.
     match /loginLogs/{logId} {
       allow read: if isAdmin();
       allow create, update, delete: if false;
     }
 
+    // ACTIVITY LOGS
+    // Only administrators can read audit records.
+    // Client-side writes are disabled.
     match /activityLogs/{logId} {
       allow read: if isAdmin();
       allow create, update, delete: if false;
     }
 
-    // Community reviews are public. Purchase verification must never be client-controlled.
+    // COMMUNITY REVIEWS
+    // Reviews are publicly readable.
+    // Purchase verification must never be controlled by ordinary users.
     match /reviews/{reviewId} {
       allow read: if true;
+
+      // Authenticated users can create their own unverified reviews.
       allow create: if isAuthenticated()
         && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.rating is int
         && request.resource.data.rating >= 1
         && request.resource.data.rating <= 5
         && request.resource.data.verified == false
+        && request.resource.data.comment is string
         && request.resource.data.comment.size() >= 3
         && request.resource.data.comment.size() <= 2000;
-      allow update, delete: if isAdmin()
+
+      // Administrators can manage reviews.
+      // Owners can edit only their name, rating and comment.
+      // Owners cannot change identity or purchase verification.
+      allow update: if isAdmin() || (
+        isAuthenticated()
+        && resource.data.authorUid == request.auth.uid
+        && request.resource.data.authorUid == resource.data.authorUid
+        && request.resource.data.verified == resource.data.verified
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['name', 'rating', 'comment'])
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && request.resource.data.comment is string
+        && request.resource.data.comment.size() >= 3
+        && request.resource.data.comment.size() <= 2000
+      );
+
+      // Administrators or the original author can delete reviews.
+      allow delete: if isAdmin()
         || (isAuthenticated() && resource.data.authorUid == request.auth.uid);
     }
 
+    // CARS
+    // Everyone can view cars.
+    // Only administrators can create, update or delete cars.
     match /cars/{carId} {
       allow read: if true;
       allow write: if isAdmin();
     }
+
   }
 }
