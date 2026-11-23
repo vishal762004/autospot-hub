@@ -13,7 +13,7 @@ import { SmartCarImage } from './SmartCarImage';
 
 interface ProfileViewProps {
   user: UserProfile;
-  onUpdateUser: (updatedUser: UserProfile) => void;
+  onUpdateUser: (updatedUser: UserProfile) => void | Promise<void>;
   orders: Order[];
   testDrives: TestDriveAppointment[];
   currentUser: FirebaseUser | null;
@@ -58,26 +58,36 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64 = reader.result as string;
-        onUpdateUser({ ...user, avatarUrl: base64 });
+        void Promise.resolve(onUpdateUser({ ...user, avatarUrl: base64 }))
+          .catch((error: unknown) => {
+            console.error('Unable to save profile avatar:', error);
+          });
       };
       reader.readAsDataURL(file);
     }
   };
 
   // Form Submission
-  const handleSaveProfile = (e: React.FormEvent) => {
+  const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdateUser({
-      ...user,
-      name,
-      email,
-      phone,
-      address,
-      city,
-      pincode,
-    });
-    setSavedSuccess(true);
-    setTimeout(() => setSavedSuccess(false), 3000);
+
+    try {
+      await onUpdateUser({
+        ...user,
+        name,
+        email,
+        phone,
+        address,
+        city,
+        pincode,
+      });
+
+      setSavedSuccess(true);
+      setTimeout(() => setSavedSuccess(false), 3000);
+    } catch (error) {
+      console.error('Profile update was not saved:', error);
+      setSavedSuccess(false);
+    }
   };
 
   if (!currentUser) {
@@ -118,10 +128,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-white space-y-8">
-      
+
       {/* USER HEADER BANNER CARD */}
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center gap-6">
-        
+
         {/* Avatar Upload */}
         <div className="relative group">
           <div className="w-24 h-24 rounded-full overflow-hidden bg-slate-950 border-4 border-amber-400 shadow-xl flex items-center justify-center text-amber-400 font-bold text-3xl">
@@ -171,7 +181,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <MapPin className="w-3.5 h-3.5 text-amber-400" />
             <span>{user.city || 'New Delhi'}, India</span>
           </p>
-          
+
           <div className="pt-2 flex justify-center md:justify-start">
             <button
               onClick={onLogout}

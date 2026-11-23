@@ -20,10 +20,11 @@ The catalogue uses one local image asset per vehicle. Exact duplicate image file
 - Private customer orders and test-drive bookings
 - Admin dashboard protected by Firebase Auth custom claims
 - Firestore security rules for user ownership and admin authorization
+- Firebase Hosting configuration for the Vite single-page application
 - Document verification step with privacy-safe checklist status
 - Professional PDF customer order-summary generation
 - Responsive UI with reusable React components
-- Unit tests for pricing calculations
+- Automated tests for pricing calculations and Firestore security rules
 
 ## Technology
 
@@ -75,12 +76,20 @@ npm run set-admin
 
 The Firebase Admin SDK is server-side tooling and must not be included in the browser bundle.
 
+## Firebase Hosting deployment
+
+The repository includes Firebase Hosting configuration for the Vite `dist/` output and a single-page-app rewrite. See [`DEPLOYMENT.md`](DEPLOYMENT.md) for the complete checklist, emulator validation, authentication setup, deployment command, and demo limitations. The intended Firebase project is `auto-spot-hub`.
+
+Deploy only after `npm ci` and the complete Firestore Emulator-backed `npm run check` pass. The deployment command publishes Hosting and Firestore rules; it does not deploy Cloud Functions or Storage rules.
+
 ## Local setup
 
 Prerequisites:
 
 - Node.js 22.12+
-- A Firebase project
+- Java 21+ for the Firestore Emulator
+- Firebase CLI 15.37.0+
+- Access to the Firebase project
 
 Install dependencies:
 
@@ -96,12 +105,10 @@ Run locally:
 npm run dev
 ```
 
-Run checks:
+Run the complete checks with a temporary Firestore Emulator:
 
-```bash
-npm run typecheck
-npm test
-npm run build
+```powershell
+npx --yes firebase-tools@15.37.0 emulators:exec --only firestore --project demo-autospot-hub "npm run check"
 ```
 
 ## Payment status
@@ -129,8 +136,12 @@ src/
 scripts/
 └── set-admin.mjs
 tests/
+├── firestore.rules.test.ts
 └── taxCalculator.test.ts
 firestore.rules
+firebase.json
+.firebaserc
+DEPLOYMENT.md
 vitest.config.ts
 ```
 
@@ -140,7 +151,7 @@ vitest.config.ts
 - Add Firebase App Check
 - Move checkout/order creation to trusted backend functions
 - Add integration and end-to-end tests with Playwright
-- Add CI on every pull request
+- Keep the configured GitHub Actions CI quality gate passing on every pull request
 - Add inventory reservation/transaction handling
 - Add server-generated timestamps and audit events
 - Add monitoring and structured error reporting

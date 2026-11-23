@@ -438,7 +438,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full min-w-0 overflow-x-hidden bg-slate-950 font-sans text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
-      
+
       {/* TOAST NOTIFICATION BANNER */}
       {toastMessage && (
         <div className="fixed top-24 right-4 z-50 bg-slate-900 border border-amber-500 text-amber-300 font-bold px-4 py-3 rounded-2xl shadow-2xl text-xs flex items-center gap-2 animate-bounce">
@@ -481,7 +481,7 @@ export default function App() {
           />
         )}
 
-        
+
         {/* TAB 1: HOME PAGE */}
         {activeTab === 'home' && (
           <div className="space-y-12">
@@ -553,12 +553,21 @@ export default function App() {
         {activeTab === 'profile' && (
           <ProfileView
             user={userProfile}
-            onUpdateUser={(updated) => {
-              setUserProfile(updated);
-              if (currentUser) {
-                updateUserProfileDoc(currentUser.uid, updated);
+            onUpdateUser={async (updated) => {
+              if (!currentUser) {
+                setUserProfile(updated);
+                return;
               }
-              showToast('Profile details updated in Firestore!');
+
+              try {
+                await updateUserProfileDoc(currentUser.uid, updated);
+                setUserProfile(updated);
+                showToast('Profile details updated in Firestore!');
+              } catch (error) {
+                console.error('Unable to save profile details:', error);
+                showToast('Unable to save profile details. Please try again.');
+                throw error;
+              }
             }}
             orders={orders}
             testDrives={testDrives}
