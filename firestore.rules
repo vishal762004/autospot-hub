@@ -1,4 +1,3 @@
-
 rules_version = '2';
 
 service cloud.firestore {
@@ -21,30 +20,94 @@ service cloud.firestore {
     }
 
     // USER PROFILES
-    // Users may edit only customer-owned profile fields.
-    // Identity, counters and timestamps are protected.
     match /users/{userId} {
       allow read: if isOwner(userId) || isAdmin();
 
+      // New profiles must be created by their owner with safe initial counters.
       allow create: if isOwner(userId)
+        && request.resource.data.keys().hasAll([
+          'uid',
+          'name',
+          'email',
+          'phone',
+          'address',
+          'city',
+          'pincode',
+          'avatarUrl',
+          'carsViewedCount',
+          'createdAt',
+          'updatedAt',
+          'loginCount'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'uid',
+          'name',
+          'email',
+          'phone',
+          'address',
+          'city',
+          'pincode',
+          'avatarUrl',
+          'carsViewedCount',
+          'createdAt',
+          'updatedAt',
+          'loginCount'
+        ])
         && request.resource.data.uid == request.auth.uid
-        && request.resource.data.loginCount == 0;
+        && request.resource.data.name is string
+        && request.resource.data.email is string
+        && request.resource.data.phone is string
+        && request.resource.data.address is string
+        && request.resource.data.city is string
+        && request.resource.data.pincode is string
+        && request.resource.data.avatarUrl is string
+        && request.resource.data.carsViewedCount == 0
+        && request.resource.data.loginCount == 0
+        && request.resource.data.createdAt is string
+        && request.resource.data.updatedAt is string;
 
+      // Admins can manage profiles. Owners may update only contact/profile fields.
+      // Safe get() defaults allow legacy profiles without optional metadata.
       allow update: if isAdmin() || (
         isOwner(userId)
-        && request.resource.data.uid == resource.data.uid
-        && request.resource.data.createdAt == resource.data.createdAt
-        && request.resource.data.loginCount == resource.data.loginCount
-        && request.resource.data.lastLoginAt == resource.data.lastLoginAt
+        && resource.data.get('uid', request.auth.uid) == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly([
+            'name',
+            'email',
+            'phone',
+            'address',
+            'city',
+            'pincode',
+            'avatarUrl',
+            'updatedAt'
+          ])
+        && request.resource.data.name is string
+        && request.resource.data.email is string
+        && request.resource.data.phone is string
+        && request.resource.data.address is string
+        && request.resource.data.city is string
+        && request.resource.data.pincode is string
+        && request.resource.data.avatarUrl is string
+        && request.resource.data.updatedAt is string
+        && request.resource.data.get('uid', null)
+          == resource.data.get('uid', null)
+        && request.resource.data.get('createdAt', null)
+          == resource.data.get('createdAt', null)
+        && request.resource.data.get('loginCount', null)
+          == resource.data.get('loginCount', null)
+        && request.resource.data.get('lastLoginAt', null)
+          == resource.data.get('lastLoginAt', null)
+        && request.resource.data.get('carsViewedCount', null)
+          == resource.data.get('carsViewedCount', null)
       );
 
       allow delete: if isAdmin();
     }
 
     // ORDERS
-    // Demo checkout data only.
-    // Real commerce deployments must create authoritative orders
-    // through trusted backend code.
+    // Demo checkout data only. Real commerce deployments should create
+    // authoritative orders through trusted backend code.
     match /orders/{orderId} {
       allow read: if isAdmin()
         || (isAuthenticated() && resource.data.userId == request.auth.uid);
@@ -58,6 +121,7 @@ service cloud.firestore {
           'Net Banking',
           'UPI'
         ]
+        && request.resource.data.items is list
         && request.resource.data.items.size() > 0
         && request.resource.data.taxBreakdown.grandTotal
           == request.resource.data.taxBreakdown.basePrice
@@ -81,29 +145,22 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // LOGIN LOGS
-    // Only administrators can read audit records.
-    // Client-side writes are disabled.
+    // LOGIN LOGS: client-side writes are disabled; use trusted backend code.
     match /loginLogs/{logId} {
       allow read: if isAdmin();
       allow create, update, delete: if false;
     }
 
-    // ACTIVITY LOGS
-    // Only administrators can read audit records.
-    // Client-side writes are disabled.
+    // ACTIVITY LOGS: client-side writes are disabled; use trusted backend code.
     match /activityLogs/{logId} {
       allow read: if isAdmin();
       allow create, update, delete: if false;
     }
 
     // COMMUNITY REVIEWS
-    // Reviews are publicly readable.
-    // Purchase verification must never be controlled by ordinary users.
     match /reviews/{reviewId} {
       allow read: if true;
 
-      // Authenticated users can create their own unverified reviews.
       allow create: if isAuthenticated()
         && request.resource.data.authorUid == request.auth.uid
         && request.resource.data.rating is int
@@ -114,9 +171,6 @@ service cloud.firestore {
         && request.resource.data.comment.size() >= 3
         && request.resource.data.comment.size() <= 2000;
 
-      // Administrators can manage reviews.
-      // Owners can edit only their name, rating and comment.
-      // Owners cannot change identity or purchase verification.
       allow update: if isAdmin() || (
         isAuthenticated()
         && resource.data.authorUid == request.auth.uid
@@ -132,18 +186,14 @@ service cloud.firestore {
         && request.resource.data.comment.size() <= 2000
       );
 
-      // Administrators or the original author can delete reviews.
       allow delete: if isAdmin()
         || (isAuthenticated() && resource.data.authorUid == request.auth.uid);
     }
 
     // CARS
-    // Everyone can view cars.
-    // Only administrators can create, update or delete cars.
     match /cars/{carId} {
       allow read: if true;
       allow write: if isAdmin();
     }
-
   }
 }

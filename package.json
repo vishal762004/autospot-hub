@@ -50,5 +50,8 @@
     "@firebase/util@1.15.3": true,
     "esbuild@0.28.2": true,
     "protobufjs": false
+  },
+  "overrides": {
+    "@grpc/grpc-js": "1.14.7"
   }
 }
